@@ -293,7 +293,7 @@ function start_watchtower() {
   # testing).  Otherwise refresh every hour.
   local WATCHTOWER_REFRESH_SECONDS="${WATCHTOWER_REFRESH_SECONDS:-3600}"
   declare -a docker_watchtower_flags=(--name watchtower --restart=always)
-  docker_watchtower_flags+=(-v /run/podman/podman.sock:/var/run/docker.sock)
+  docker_watchtower_flags+=(-v /run/podman/io.podman:/var/run/docker.sock)
   # By itself, local messes up the return code.
   local readonly STDERR_OUTPUT
   STDERR_OUTPUT=$(docker run -d "${docker_watchtower_flags[@]}" containrrr/watchtower --cleanup --label-enable --tlsverify --interval $WATCHTOWER_REFRESH_SECONDS 2>&1 >/dev/null)
